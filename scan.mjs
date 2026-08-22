@@ -83,9 +83,6 @@ const PIPELINE_PATH = process.env.CAREER_OPS_PIPELINE || 'data/pipeline.md';
 const APPLICATIONS_PATH = 'data/applications.md';
 const PROVIDERS_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'providers');
 
-
-
-
 const CONCURRENCY = 10;
 
 // Provider loading + routing live in providers/_registry.mjs so the portal
@@ -2022,7 +2019,7 @@ export function writeRunFailureRow(status = 'failed', filePath = SCAN_RUNS_PATH)
 }
 
 export function appendScanRunSummary(c, filePath = SCAN_RUNS_PATH) {
-  mkdirSync('data', { recursive: true });
+  mkdirSync(path.dirname(filePath), { recursive: true });
   if (!existsSync(filePath)) writeFileSync(filePath, SCAN_RUNS_HEADER, 'utf-8');
   const row = [
     c.timestamp, c.status ?? 'completed', c.companies, c.boards, c.found,
